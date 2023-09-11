@@ -12,6 +12,7 @@ public:
 	MyString(const MyString& str);
 	~MyString();
 	MyString& assign(const char* str);
+	MyString& assign(const MyString& str);
 
 	void print() const;
 	void println() const;
@@ -95,6 +96,20 @@ MyString& MyString::assign(const char* str)
 	return *this;
 }
 
+MyString& MyString::assign(const MyString& str) {
+	int new_strlength = strlen(str.string_context);
+	if (new_strlength > string_length) {
+		delete[] string_context;
+		string_context = new char[new_strlength + 1];
+	}
+	for (int i = 0; i != new_strlength; i++) {
+		string_context[i] = str.string_context[i];
+	}
+	string_length = new_strlength;
+	string_context[string_length] = 0;
+	return *this;
+}
+
 void main()
 {
 	MyString str1("Hello world");
@@ -105,4 +120,6 @@ void main()
 
 	str1.assign("UnderWorld UnderWorld UnderWOrld");
 	str1.println();
+	str2.assign(str1);
+	str2.println();
 }
