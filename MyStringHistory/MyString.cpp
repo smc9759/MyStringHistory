@@ -17,6 +17,7 @@ public:
 	MyString& insert(int loc, const MyString& str);
 	MyString& insert(int loc, const char* str);
 	MyString& insert(int loc, char c);
+	MyString& erase(int loc, int num);
 
 	void print() const;
 	void println() const;
@@ -24,6 +25,8 @@ public:
 	int length() const;
 	void reserve(int size);
 	char at(int i) const;
+	int find(int find_from, MyString& str) const;
+
 };
 
 
@@ -193,6 +196,39 @@ MyString& MyString::insert(int loc, const char* str) {
 MyString& MyString::insert(int loc, char c) {
 	MyString temp(c);
 	return insert(loc, temp);
+}
+
+MyString& MyString::erase(int loc, int num) {
+	if (num < 0 || loc < 0 || loc > string_length) return *this;
+
+	// 지운다는 것은 단순히 뒤의 문자들을 앞으로 끌고 온다고
+	// 생각하면 됩니다.
+
+	for (int i = loc + num; i < string_length; i++) {
+		string_context[i - num] = string_context[i];
+	}
+
+	string_length -= num;
+	return *this;
+}
+
+int MyString::find(int find_from, MyString& str) const {
+	if (find_from<0 || find_from> string_length) return -1;
+	static int str_index = 0;
+	//1. original
+	int i, j;
+	for (i = find_from; i < string_length- str.string_length; i++) {
+		for (j = 0; j < str.string_length; j++) {
+			if (string_context[i + j] != str.string_context[j]) {
+				break;
+			}
+		}
+		if (j == str.string_length) return i;
+	}
+	return -1;
+
+	//2. pi
+	//orginal understanding needed first
 }
 
 void main()
