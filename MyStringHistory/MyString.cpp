@@ -7,7 +7,6 @@ private:
 	char* string_context;
 	int memory_capacity;   // 현재 할당된 용량
 public:
-	int return_length() const{ return string_length; };
 	MyString(const char* str);
 	MyString(char c);
 	MyString(const MyString& str);
@@ -17,6 +16,9 @@ public:
 
 	void print() const;
 	void println() const;
+	int capacity();
+	int length() const;
+	void reserve(int size);
 
 };
 
@@ -27,6 +29,7 @@ MyString::MyString(char c) {
 	//str.string_context[0] = c;
 	string_context = new char[1];
 	string_length = 1;
+	memory_capacity = 1;
 	string_context[0] = c;
 
 }
@@ -38,6 +41,7 @@ MyString::MyString(const char* str) {
 	MyString str1 = new char[count];
 */
 	string_length = strlen(str);
+	memory_capacity = string_length;
 	string_context = new char[string_length+1];
 	for (int i = 0; i != string_length; i++) {
 		string_context[i] = str[i];
@@ -49,6 +53,7 @@ MyString::MyString(const char* str) {
 MyString::MyString(const MyString& str) {
 	string_length = str.string_length;
 	string_context = new char[string_length+1];
+	memory_capacity = string_length;
 
 	for (int i = 0; i != string_length; i++) {
 		string_context[i] = str.string_context[i];
@@ -88,6 +93,7 @@ MyString& MyString::assign(const char* str)
 	if (new_strlength > string_length) {
 		delete[] string_context;
 		string_context = new char[new_strlength+1];
+		memory_capacity = string_length;
 	}
 	for (int i = 0; i != new_strlength; i++) {
 		string_context[i] = str[i];
@@ -102,6 +108,7 @@ MyString& MyString::assign(const MyString& str) {
 	if (new_strlength > string_length) {
 		delete[] string_context;
 		string_context = new char[new_strlength + 1];
+		memory_capacity = str.string_length;
 	}
 	for (int i = 0; i != new_strlength; i++) {
 		string_context[i] = str.string_context[i];
@@ -111,18 +118,33 @@ MyString& MyString::assign(const MyString& str) {
 	return *this;
 }
 
+int MyString::capacity() { return memory_capacity; }
+
+int MyString::length() const { return string_length; }
+
+void MyString::reserve(int size) {
+	if (size > memory_capacity) {
+		char *prev_string_content = string_context;
+
+		string_context = new char[size];
+		memory_capacity = size;
+
+		for (int i = 0; i != string_length; i++)
+			string_context[i] = prev_string_content[i];
+
+		delete[] prev_string_content;
+	}
+
+}
+
 void main()
 {
-	MyString str1("Hello world Hello world");
-	MyString str2(str1);
 
-	str1.println();
-	str2.println();
+	MyString str1("very very very long string");
+	str1.reserve(30);
 
-	str1.assign("UnderWorld UnderWorld UnderWOrld");
+	std::cout << "Capacity : " << str1.capacity() << std::endl;
+	std::cout << "String length : " << str1.length() << std::endl;
 	str1.println();
-	str2.assign(str1);
-	str2.println();
-	str2.assign("short");
-	str2.println();
+
 }
