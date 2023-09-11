@@ -10,6 +10,7 @@ public:
 	MyString(const char* str);
 	MyString(char c);
 	MyString(const MyString& str);
+	MyString(int capacity);
 	~MyString();
 	MyString& assign(const char* str);
 	MyString& assign(const MyString& str);
@@ -29,6 +30,12 @@ public:
 
 };
 
+MyString::MyString(int capacity) {
+	string_context = new char[capacity];
+	string_length = 0;
+	memory_capacity = capacity;
+	std::cout << "Capacity : " << capacity << std::endl;
+}
 
 MyString::MyString(char c) {
 	//MyString str = new char[1];
