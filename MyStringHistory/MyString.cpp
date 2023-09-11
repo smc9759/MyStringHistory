@@ -10,7 +10,7 @@ public:
 	MyString(const char* str);
 	MyString(char c);
 	MyString(const MyString& str);
-	MyString(int capacity);
+	explicit MyString(int capacity);
 	~MyString();
 	MyString& assign(const char* str);
 	MyString& assign(const MyString& str);
@@ -258,4 +258,6 @@ void main()
 	std::cout << "Capacity : " << str1.capacity() << std::endl;
 	std::cout << "String length : " << str1.length() << std::endl;
 	str1.println();
+
+	MyString s(3);
 }
