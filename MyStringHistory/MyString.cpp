@@ -5,6 +5,7 @@ class MyString {
 private:
 	int string_length;
 	char* string_context;
+	int memory_capacity;   // 현재 할당된 용량
 public:
 	int return_length() const{ return string_length; };
 	MyString(const char* str);
@@ -112,7 +113,7 @@ MyString& MyString::assign(const MyString& str) {
 
 void main()
 {
-	MyString str1("Hello world");
+	MyString str1("Hello world Hello world");
 	MyString str2(str1);
 
 	str1.println();
@@ -121,5 +122,7 @@ void main()
 	str1.assign("UnderWorld UnderWorld UnderWOrld");
 	str1.println();
 	str2.assign(str1);
+	str2.println();
+	str2.assign("short");
 	str2.println();
 }
