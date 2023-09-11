@@ -14,6 +14,7 @@ public:
 
 	void print();
 	void println();
+	void assign(const char* str);
 
 };
 
@@ -68,10 +69,23 @@ void MyString::println()
 	std::cout << std::endl;
 }
 
+void MyString::assign(const char* str)
+{
+	memset(string_context, 0, sizeof(char)*string_length);
+	string_length = strlen(str);
+	for (int i = 0; i != string_length; i++) {
+		string_context[i] = str[i];
+	}
+}
+
 void main()
 {
 	MyString str1("Hello world");
+	MyString str2(str1);
 
 	str1.println();
 	str1.print();
+
+	str1.assign("UnderWorld");
+	str1.println();
 }
