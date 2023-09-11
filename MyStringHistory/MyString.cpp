@@ -167,9 +167,20 @@ MyString& MyString::insert(int loc, const MyString& str) {
 		char* prev_string_content = string_context;
 		string_context = new char[memory_capacity];
 
-
+		int i;
+		for (i = 0; i < loc; i++) {
+			string_context[i] = prev_string_content[i];
+		}
+		for (int j = 0; j != str.string_length; j++) {
+			string_context[i + j] = str.string_context[j];
+		}
+		for (; i < string_length; i++) {
+			string_context[i + j] = prev_string_content[i];
+		}
+		string_length += str.string_length;
 	}
-
+	
+	return *this;
 }
 
 
@@ -185,5 +196,7 @@ void main()
 	//이게 프린트가 안되면 println을 들여다봤어야됨
 	str1.addString("Tail Added Tail Added Tail Added");
 	str1.println();
+
+	//str1.insert(8, )
 
 }
