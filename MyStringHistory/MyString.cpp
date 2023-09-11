@@ -36,19 +36,22 @@ MyString::MyString(const char* str) {
 	MyString str1 = new char[count];
 */
 	string_length = strlen(str);
-	string_context = new char[string_length];
+	string_context = new char[string_length+1];
 	for (int i = 0; i != string_length; i++) {
 		string_context[i] = str[i];
 	}
+	string_context[string_length] = 0;
+
 }
 
 MyString::MyString(const MyString& str) {
 	string_length = str.string_length;
-	string_context = new char[string_length];
+	string_context = new char[string_length+1];
 
 	for (int i = 0; i != string_length; i++) {
 		string_context[i] = str.string_context[i];
 	}
+	string_context[string_length] = 0;
 }
 
 MyString::~MyString() { delete[] string_context; }
@@ -65,9 +68,13 @@ void MyString::print() const
 void MyString::println() const
 {
 	std::cout << string_context;
-	for (int i = 0; i != string_length; i++) {
-		//std::cout << string_context[i];
-	}
+	
+	//////////////////////////////////
+	//Used when array is non-null-terminated string
+
+	//for (int i = 0; i != string_length; i++) {
+	//	//std::cout << string_context[i];
+	//}
 	std::cout << std::endl;
 }
 
