@@ -44,10 +44,13 @@ MyString::MyString(const char* str) {
 
 MyString::MyString(const MyString& str) {
 	string_length = str.string_length;
+	string_context = new char[string_length];
+
 	for (int i = 0; i != string_length; i++) {
 		string_context[i] = str.string_context[i];
 	}
 }
+
 
 MyString::~MyString() { delete[] string_context; }
 
