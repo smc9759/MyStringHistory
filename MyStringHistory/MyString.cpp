@@ -13,8 +13,8 @@ public:
 	~MyString();
 	MyString& assign(const char* str);
 
-	void print();
-	void println();
+	void print() const;
+	void println() const;
 
 };
 
@@ -51,11 +51,10 @@ MyString::MyString(const MyString& str) {
 	}
 }
 
-
 MyString::~MyString() { delete[] string_context; }
 
 
-void MyString::print()
+void MyString::print() const
 {
 	//std::cout << string_context;
 	for (int i = 0; i != string_length; i++) {
@@ -63,7 +62,7 @@ void MyString::print()
 	}
 }
 
-void MyString::println()
+void MyString::println() const
 {
 	//std::cout << string_context;
 	for (int i = 0; i != string_length; i++) {
@@ -92,6 +91,9 @@ void main()
 
 	str1.println();
 	str2.println();
+
+	char* str3 = "Underworld";
+	std::cout << str3 << std::endl;
 
 	//str1.assign("UnderWor");
 	//str1.println();
