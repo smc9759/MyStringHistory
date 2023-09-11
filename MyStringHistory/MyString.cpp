@@ -14,6 +14,7 @@ public:
 	MyString& assign(const char* str);
 	MyString& assign(const MyString& str);
 	MyString& addString(const char* str);
+	MyString& insert(int loc, const MyString& str);
 
 	void print() const;
 	void println() const;
@@ -157,6 +158,21 @@ MyString& MyString::addString(const char* str) {
 	return *this;
 }
 
+MyString& MyString::insert(int loc, const MyString& str) {
+	if (loc <0 || loc > string_length)
+		return *this;
+	if (string_length + str.string_length > memory_capacity) {
+		reserve(memory_capacity * 2);
+
+		char* prev_string_content = string_context;
+		string_context = new char[memory_capacity];
+
+
+	}
+
+}
+
+
 void main()
 {
 
@@ -166,7 +182,7 @@ void main()
 	std::cout << "Capacity : " << str1.capacity() << std::endl;
 	std::cout << "String length : " << str1.length() << std::endl;
 	str1.println();
-
+	//이게 프린트가 안되면 println을 들여다봤어야됨
 	str1.addString("Tail Added Tail Added Tail Added");
 	str1.println();
 
