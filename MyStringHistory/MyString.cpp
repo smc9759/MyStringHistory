@@ -169,11 +169,11 @@ MyString& MyString::insert(int loc, const MyString& str) {
 		char* prev_string_content = string_context;
 		string_context = new char[memory_capacity];
 
-		int i;
+		int i,j ;
 		for (i = 0; i < loc; i++) {
 			string_context[i] = prev_string_content[i];
 		}
-		for (int j = 0; j != str.string_length; j++) {
+		for (j = 0; j != str.string_length; j++) {
 			string_context[i + j] = str.string_context[j];
 		}
 		for (; i < string_length; i++) {
@@ -199,6 +199,7 @@ void main()
 {
 
 	MyString str1("very very very long string");
+	MyString str2("My Life has begun");
 	str1.reserve(30);
 
 	std::cout << "Capacity : " << str1.capacity() << std::endl;
@@ -208,6 +209,7 @@ void main()
 	str1.addString("Tail Added Tail Added Tail Added");
 	str1.println();
 
-	//str1.insert(8, )
+	str1.insert(8, str2);
+	str1.println();
 
 }
