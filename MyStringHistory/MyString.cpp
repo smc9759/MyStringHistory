@@ -11,6 +11,10 @@ public:
 	MyString(char c);
 	MyString(const MyString& str);
 	~MyString();
+
+	void print();
+	void println();
+
 };
 
 
@@ -46,7 +50,28 @@ MyString::MyString(const MyString& str) {
 
 MyString::~MyString() { delete[] string_context; }
 
+
+void MyString::print()
+{
+	//std::cout << string_context;
+	for (int i = 0; i != string_length; i++) {
+		std::cout << string_context[i];
+	}
+}
+
+void MyString::println()
+{
+	//std::cout << string_context;
+	for (int i = 0; i != string_length; i++) {
+		std::cout << string_context[i];
+	}
+	std::cout << std::endl;
+}
+
 void main()
 {
+	MyString str1("Hello world");
 
+	str1.println();
+	str1.print();
 }
