@@ -11,10 +11,10 @@ public:
 	MyString(char c);
 	MyString(const MyString& str);
 	~MyString();
+	MyString& assign(const char* str);
 
 	void print();
 	void println();
-	void assign(const char* str);
 
 };
 
@@ -37,7 +37,7 @@ MyString::MyString(const char* str) {
 */
 	string_length = strlen(str);
 	string_context = new char[string_length];
-	for (int i = 0; i < string_length; i++) {
+	for (int i = 0; i != string_length; i++) {
 		string_context[i] = str[i];
 	}
 }
@@ -69,13 +69,17 @@ void MyString::println()
 	std::cout << std::endl;
 }
 
-void MyString::assign(const char* str)
+MyString& MyString::assign(const char* str)
 {
-	memset(string_context, 0, sizeof(char)*string_length);
-	string_length = strlen(str);
-	for (int i = 0; i != string_length; i++) {
+	//memset(string_context, 0, sizeof(char)*string_length);
+	//delete[] string_context;
+	int new_strlength = strlen(str);
+	for (int i = 0; i != new_strlength; i++) {
 		string_context[i] = str[i];
 	}
+	string_length = new_strlength;
+
+	return *this;
 }
 
 void main()
@@ -84,8 +88,8 @@ void main()
 	MyString str2(str1);
 
 	str1.println();
-	str1.print();
+	str2.println();
 
-	str1.assign("UnderWorld");
-	str1.println();
+	//str1.assign("UnderWor");
+	//str1.println();
 }
