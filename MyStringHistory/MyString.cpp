@@ -197,7 +197,6 @@ MyString& MyString::insert(int loc, char c) {
 
 void main()
 {
-
 	MyString str1("very very very long string");
 	MyString str2("My Life has begun");
 	str1.reserve(30);
@@ -206,10 +205,14 @@ void main()
 	std::cout << "String length : " << str1.length() << std::endl;
 	str1.println();
 	//이게 프린트가 안되면 println을 들여다봤어야됨
+
 	str1.addString("Tail Added Tail Added Tail Added");
+	std::cout << "Capacity : " << str1.capacity() << std::endl;
+	std::cout << "String length : " << str1.length() << std::endl;
 	str1.println();
 
 	str1.insert(8, str2);
+	std::cout << "Capacity : " << str1.capacity() << std::endl;
+	std::cout << "String length : " << str1.length() << std::endl;
 	str1.println();
-
 }
