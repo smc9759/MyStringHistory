@@ -32,6 +32,14 @@ public:
 	bool operator==(MyString& str);
 };
 
+class Complex {
+private:
+	double real, img;
+
+public:
+	Complex(double real, double img) : real(real), img(img) {}
+};
+
 MyString::MyString(int capacity) {
 	string_context = new char[capacity];
 	string_length = 0;
