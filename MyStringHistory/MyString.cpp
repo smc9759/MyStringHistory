@@ -13,7 +13,7 @@ public:
 	~MyString();
 	MyString& assign(const char* str);
 	MyString& assign(const MyString& str);
-	MyString& insert(const char* str);
+	MyString& addString(const char* str);
 
 	void print() const;
 	void println() const;
@@ -81,7 +81,7 @@ void MyString::println() const
 	//Used when array is non-null-terminated string
 
 	for (int i = 0; i != string_length; i++) {
-		//std::cout << string_context[i];
+		std::cout << string_context[i];
 	}
 	std::cout << std::endl;
 }
@@ -145,7 +145,15 @@ char MyString::at(int i) const {
 		return string_context[i];
 }
 
-MyString& MyString::insert(const char* str) {
+MyString& MyString::addString(const char* str) {
+	if (string_length + strlen(str) > memory_capacity) {
+		reserve(memory_capacity * 2);
+	}
+	for (int i = 0; i != strlen(str); i++) {
+		string_context[string_length + i] = str[i];
+	}
+	string_context[string_length + strlen(str)] = 0;
+	string_length += strlen(str);
 	return *this;
 }
 
@@ -157,6 +165,9 @@ void main()
 
 	std::cout << "Capacity : " << str1.capacity() << std::endl;
 	std::cout << "String length : " << str1.length() << std::endl;
+	str1.println();
+
+	str1.addString("Tail Added Tail Added Tail Added");
 	str1.println();
 
 }
