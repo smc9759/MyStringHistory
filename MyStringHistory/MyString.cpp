@@ -87,7 +87,7 @@ MyString& MyString::assign(const char* str)
 		string_context[i] = str[i];
 	}
 	string_length = new_strlength;
-
+	string_context[string_length] = 0;
 	return *this;
 }
 
@@ -98,4 +98,7 @@ void main()
 
 	str1.println();
 	str2.println();
+
+	str1.assign("UnderWOrld");
+	str1.println();
 }
