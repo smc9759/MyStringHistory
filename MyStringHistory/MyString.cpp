@@ -15,6 +15,8 @@ public:
 	MyString& assign(const MyString& str);
 	MyString& addString(const char* str);
 	MyString& insert(int loc, const MyString& str);
+	MyString& insert(int loc, const char* str);
+	MyString& insert(int loc, char c);
 
 	void print() const;
 	void println() const;
@@ -183,6 +185,15 @@ MyString& MyString::insert(int loc, const MyString& str) {
 	return *this;
 }
 
+MyString& MyString::insert(int loc, const char* str) {
+	MyString temp(str);
+	return insert(loc, temp);
+}
+
+MyString& MyString::insert(int loc, char c) {
+	MyString temp(c);
+	return insert(loc, temp);
+}
 
 void main()
 {
