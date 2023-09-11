@@ -27,7 +27,7 @@ public:
 	void reserve(int size);
 	char at(int i) const;
 	int find(int find_from, MyString& str) const;
-
+	int compare(const MyString& str) const;
 };
 
 MyString::MyString(int capacity) {
@@ -236,6 +236,31 @@ int MyString::find(int find_from, MyString& str) const {
 
 	//2. pi
 	//orginal understanding needed first
+}
+#include <algorithm>
+int MyString::compare(const MyString& str) const {
+	// (*this) - (str) 을 수행해서 그 1, 0, -1 로 그 결과를 리턴한다
+	// 1 은 (*this) 가 사전식으로 더 뒤에 온다는 의미. 0 은 두 문자열
+	// 이 같다는 의미, -1 은 (*this) 가 사전식으로 더 앞에 온다는 의미이다.
+
+	for (int i = 0; i < std::min(string_length, str.string_length); i++) {
+		if (string_context[i] > str.string_context[i])
+			return 1;
+
+		else if (string_context[i] < str.string_context[i])
+			return -1;
+	}
+
+	// 여기 까지 했는데 끝나지 않았다면 앞 부분 까지 모두 똑같은 것이 된다.
+	// 만일 문자열 길이가 같다면 두 문자열은 아예 같은 문자열이 된다.
+
+	if (string_length == str.string_length) return 0;
+
+	// 참고로 abc 와 abcd 의 크기 비교는 abcd 가 더 뒤에 오게 된다.
+	else if (string_length > str.string_length)
+		return 1;
+
+	return -1;
 }
 
 void main()
