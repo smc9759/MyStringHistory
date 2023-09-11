@@ -74,14 +74,14 @@ void MyString::print() const
 
 void MyString::println() const
 {
-	std::cout << string_context;
+	//std::cout << string_context;
 	
 	//////////////////////////////////
 	//Used when array is non-null-terminated string
 
-	//for (int i = 0; i != string_length; i++) {
-	//	//std::cout << string_context[i];
-	//}
+	for (int i = 0; i != string_length; i++) {
+		//std::cout << string_context[i];
+	}
 	std::cout << std::endl;
 }
 
