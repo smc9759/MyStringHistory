@@ -28,6 +28,8 @@ public:
 	char at(int i) const;
 	int find(int find_from, MyString& str) const;
 	int compare(const MyString& str) const;
+
+	bool operator==(MyString& str);
 };
 
 MyString::MyString(int capacity) {
@@ -263,26 +265,23 @@ int MyString::compare(const MyString& str) const {
 	return -1;
 }
 
+bool MyString::operator==(MyString& str) {
+	return !compare(str);  // str 과 같으면 compare 에서 0 을 리턴한다.
+}
+
 void main()
 {
 	MyString str1("very very very long string");
 	MyString str2("My Life has begun");
-	str1.reserve(30);
+	MyString str3("My Life has begun");
 
-	std::cout << "Capacity : " << str1.capacity() << std::endl;
-	std::cout << "String length : " << str1.length() << std::endl;
-	str1.println();
-	//이게 프린트가 안되면 println을 들여다봤어야됨
+	if (str1 == str2)
+		std::cout << "str1 와 str2 같다." << std::endl;
+	else
+		std::cout << "st1 와 str2 는 다르다." << std::endl;
 
-	str1.addString("Tail Added Tail Added Tail Added");
-	std::cout << "Capacity : " << str1.capacity() << std::endl;
-	std::cout << "String length : " << str1.length() << std::endl;
-	str1.println();
-
-	str1.insert(8, str2);
-	std::cout << "Capacity : " << str1.capacity() << std::endl;
-	std::cout << "String length : " << str1.length() << std::endl;
-	str1.println();
-
-	MyString s(3);
+	if (str2 == str3)
+		std::cout << "str2 와 str3 는 같다." << std::endl;
+	else
+		std::cout << "st2 와 str3 는 다르다" << std::endl;
 }
