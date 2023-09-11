@@ -86,15 +86,26 @@ MyString& MyString::assign(const char* str)
 
 void main()
 {
-	MyString str1("Hello world");
-	MyString str2(str1);
+	//MyString str1("Hello world");
+	//MyString str2(str1);
 
-	str1.println();
-	str2.println();
+	//str1.println();
+	//str2.println();
 
 	char* str3 = "Underworld";
-	std::cout << str3 << std::endl;
 
+	int str_length = strlen(str3);
+	//strlen does not copy \0
+	char* str_context = new char[str_length+1];
+	for (int i = 0; i != str_length; i++) {
+		str_context[i] = str3[i];
+		//non- null -terminated array created
+	}
+	str_context[str_length] = 0;
+	std::cout << str_context << std::endl;
+	//non-null-terminated character array to <<, you end up with undefined behavior. 
+	//strlen(str_context) is still 10, which is same with str_length
+	delete[] str_context;
 	//str1.assign("UnderWor");
 	//str1.println();
 }
