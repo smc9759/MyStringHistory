@@ -134,7 +134,7 @@ void MyString::reserve(int size) {
 
 		delete[] prev_string_content;
 	}
-
+	string_context[string_length] = 0;
 }
 
 void main()
