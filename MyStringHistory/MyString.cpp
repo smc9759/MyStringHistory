@@ -13,13 +13,14 @@ public:
 	~MyString();
 	MyString& assign(const char* str);
 	MyString& assign(const MyString& str);
+	MyString& insert(const char* str);
 
 	void print() const;
 	void println() const;
 	int capacity();
 	int length() const;
 	void reserve(int size);
-
+	char at(int i) const;
 };
 
 
@@ -135,6 +136,17 @@ void MyString::reserve(int size) {
 		delete[] prev_string_content;
 	}
 	string_context[string_length] = 0;
+}
+
+char MyString::at(int i) const {
+	if (i >= string_length || i < 0)
+		return NULL;
+	else
+		return string_context[i];
+}
+
+MyString& MyString::insert(const char* str) {
+	return *this;
 }
 
 void main()
