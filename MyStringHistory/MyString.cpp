@@ -83,6 +83,10 @@ MyString& MyString::assign(const char* str)
 	//memset(string_context, 0, sizeof(char)*string_length);
 	//delete[] string_context;
 	int new_strlength = strlen(str);
+	if (new_strlength > string_length) {
+		delete[] string_context;
+		string_context = new char[new_strlength+1];
+	}
 	for (int i = 0; i != new_strlength; i++) {
 		string_context[i] = str[i];
 	}
@@ -99,6 +103,6 @@ void main()
 	str1.println();
 	str2.println();
 
-	str1.assign("UnderWOrld");
+	str1.assign("UnderWorld UnderWorld UnderWOrld");
 	str1.println();
 }
