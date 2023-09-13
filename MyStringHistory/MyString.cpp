@@ -1,5 +1,43 @@
 #include <iostream>
 #include <string.h>
+#include <algorithm>
+
+
+class Complex {
+private:
+	double real, img;
+
+public:
+	Complex(double real, double img) : real(real), img(img) {}
+	Complex(const Complex& c) { real = c.real, img = c.img; }
+
+	Complex operator+(const Complex& c) const;
+	Complex operator-(const Complex& c) const;
+	Complex operator*(const Complex& c) const;
+	Complex operator/(const Complex& c) const;
+
+	void println() { std::cout << "( " << real << " , " << img << " ) " << std::endl; }
+};
+
+Complex Complex::operator+(const Complex& c) const {
+	Complex temp(real + c.real, img + c.img);
+	return temp;
+}
+Complex Complex::operator-(const Complex& c) const {
+	Complex temp(real - c.real, img - c.img);
+	return temp;
+}
+Complex Complex::operator*(const Complex& c) const {
+	Complex temp(real * c.real - img * c.img, real * c.img + img * c.real);
+	return temp;
+}
+Complex Complex::operator/(const Complex& c) const {
+	Complex temp(
+		(real * c.real + img * c.img) / (c.real * c.real + c.img * c.img),
+		(img * c.real - real * c.img) / (c.real * c.real + c.img * c.img));
+	return temp;
+}
+
 
 class MyString {
 private:
@@ -14,6 +52,7 @@ public:
 	~MyString();
 	MyString& assign(const char* str);
 	MyString& assign(const MyString& str);
+	MyString& assign();
 	MyString& addString(const char* str);
 	MyString& insert(int loc, const MyString& str);
 	MyString& insert(int loc, const char* str);
@@ -22,6 +61,7 @@ public:
 
 	void print() const;
 	void println() const;
+	void  printIndex(int index);
 	int capacity();
 	int length() const;
 	void reserve(int size);
@@ -83,7 +123,6 @@ MyString::~MyString() { delete[] string_context; }
 
 void MyString::print() const
 {
-	//std::cout << string_context;
 	for (int i = 0; i != string_length; i++) {
 		std::cout << string_context[i];
 	}
@@ -101,6 +140,11 @@ void MyString::println() const
 	}
 	std::cout << std::endl;
 }
+
+void  MyString::printIndex(int index) {
+	std::cout << string_context[index-1];
+}
+
 
 MyString& MyString::assign(const char* str)
 {
@@ -134,6 +178,13 @@ MyString& MyString::assign(const MyString& str) {
 	string_context[string_length] = 0;
 	return *this;
 }
+
+MyString& MyString::assign() {
+	std::cin >> string_context;
+	memory_capacity = string_length = strlen(string_context);
+	return *this;
+}
+
 
 int MyString::capacity() { return memory_capacity; }
 
@@ -240,7 +291,6 @@ int MyString::find(int find_from, MyString& str) const {
 	//2. pi
 	//orginal understanding needed first
 }
-#include <algorithm>
 int MyString::compare(const MyString& str) const {
 	// (*this) - (str) 을 수행해서 그 1, 0, -1 로 그 결과를 리턴한다
 	// 1 은 (*this) 가 사전식으로 더 뒤에 온다는 의미. 0 은 두 문자열
@@ -270,74 +320,13 @@ bool MyString::operator==(MyString& str) {
 	return !compare(str);  // str 과 같으면 compare 에서 0 을 리턴한다.
 }
 
-class Complex {
-private:
-	double real, img;
-
-public:
-	Complex(double real, double img) : real(real), img(img) {}
-	Complex(const Complex& c) { real = c.real, img = c.img; }
-
-	Complex operator+(const Complex& c) const;
-	Complex operator-(const Complex& c) const;
-	Complex operator*(const Complex& c) const;
-	Complex operator/(const Complex& c) const;
-
-	void println() { std::cout << "( " << real << " , " << img << " ) " << std::endl; }
-};
-
-Complex Complex::operator+(const Complex& c) const {
-	Complex temp(real + c.real, img + c.img);
-	return temp;
-}
-Complex Complex::operator-(const Complex& c) const {
-	Complex temp(real - c.real, img - c.img);
-	return temp;
-}
-Complex Complex::operator*(const Complex& c) const {
-	Complex temp(real * c.real - img * c.img, real * c.img + img * c.real);
-	return temp;
-}
-Complex Complex::operator/(const Complex& c) const {
-	Complex temp(
-		(real * c.real + img * c.img) / (c.real * c.real + c.img * c.img),
-		(img * c.real - real * c.img) / (c.real * c.real + c.img * c.img));
-	return temp;
-}
-
-
-class A {
-private:
-	void private_func() {}
-	int private_num;
-
-	friend class B;
-
-	friend void func();
-};
-
-class B {
-public:
-	void b() {
-		A a;
-
-		a.private_func();
-		a.private_num = 2;
-	}
-};
-
-void func() {
-	A a;
-	a.private_func();
-	a.private_num = 2;
-}
-
-void main()
+int main()
 {
-
-	Complex a(1.0, 2.0);
-	Complex b(3.0, -2.0);
-
-	Complex c = a * b;
-	c.println();
+	int i = 0;
+	char* input= new char[1001];
+	std::cin >> input;
+	MyString Input(input);
+	//Input.assign();
+	std::cin >> i;
+	Input.printIndex(i);
 }
