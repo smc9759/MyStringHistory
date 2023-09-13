@@ -39,6 +39,7 @@ Complex Complex::operator/(const Complex& c) const {
 }
 
 
+
 class MyString {
 private:
 	int string_length;
@@ -61,7 +62,7 @@ public:
 
 	void print() const;
 	void println() const;
-	void  printIndex(int index);
+	void printIndex(int index);
 	int capacity();
 	int length() const;
 	void reserve(int size);
@@ -180,6 +181,8 @@ MyString& MyString::assign(const MyString& str) {
 }
 
 MyString& MyString::assign() {
+	//z크기가 0인 배열에 입력을 집어넣으려니 오류가 발생함 
+	string_context = new char[1001];
 	std::cin >> string_context;
 	memory_capacity = string_length = strlen(string_context);
 	return *this;
@@ -322,11 +325,10 @@ bool MyString::operator==(MyString& str) {
 
 int main()
 {
-	int i = 0;
-	char* input= new char[1001];
-	std::cin >> input;
-	MyString Input(input);
-	//Input.assign();
-	std::cin >> i;
-	Input.printIndex(i);
+	//int i = 0;
+	//char* input= new char[1001];
+	//std::cin >> input;
+	MyString Input("");
+	Input.assign();
+	
 }
