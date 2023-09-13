@@ -332,7 +332,8 @@ int main()
 	for (int j = 0; j < i; j++) {
 		MyString Input("");
 		Input.assign();
-		Input.println();
+		Input.printIndex(1);
+		Input.printIndex(Input.length());
 		//2. 
 	}
 	
