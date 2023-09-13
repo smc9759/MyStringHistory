@@ -32,13 +32,6 @@ public:
 	bool operator==(MyString& str);
 };
 
-class Complex {
-private:
-	double real, img;
-
-public:
-	Complex(double real, double img) : real(real), img(img) {}
-};
 
 MyString::MyString(int capacity) {
 	string_context = new char[capacity];
@@ -276,6 +269,42 @@ int MyString::compare(const MyString& str) const {
 bool MyString::operator==(MyString& str) {
 	return !compare(str);  // str 과 같으면 compare 에서 0 을 리턴한다.
 }
+
+class Complex {
+private:
+	double real, img;
+
+public:
+	Complex(double real, double img) : real(real), img(img) {}
+	Complex(const Complex& c) { real = c.real, img = c.img; }
+
+	Complex operator+(const Complex& c) const;
+	Complex operator-(const Complex& c) const;
+	Complex operator*(const Complex& c) const;
+	Complex operator/(const Complex& c) const;
+
+	void println() { std::cout << "( " << real << " , " << img << " ) " << std::endl; }
+};
+
+Complex Complex::operator+(const Complex& c) const {
+	Complex temp(real + c.real, img + c.img);
+	return temp;
+}
+Complex Complex::operator-(const Complex& c) const {
+	Complex temp(real - c.real, img - c.img);
+	return temp;
+}
+Complex Complex::operator*(const Complex& c) const {
+	Complex temp(real * c.real - img * c.img, real * c.img + img * c.real);
+	return temp;
+}
+Complex Complex::operator/(const Complex& c) const {
+	Complex temp(
+		(real * c.real + img * c.img) / (c.real * c.real + c.img * c.img),
+		(img * c.real - real * c.img) / (c.real * c.real + c.img * c.img));
+	return temp;
+}
+
 
 void main()
 {
