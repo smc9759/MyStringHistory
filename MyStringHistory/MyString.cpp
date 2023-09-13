@@ -223,7 +223,7 @@ MyString& MyString::erase(int loc, int num) {
 }
 
 int MyString::find(int find_from, MyString& str) const {
-	if (find_from<0 || find_from> string_length) return -1;
+	if (find_from < 0 || find_from > string_length) return -1;
 	static int str_index = 0;
 	//1. original
 	int i, j;
@@ -306,19 +306,38 @@ Complex Complex::operator/(const Complex& c) const {
 }
 
 
+class A {
+private:
+	void private_func() {}
+	int private_num;
+
+	friend class B;
+
+	friend void func();
+};
+
+class B {
+public:
+	void b() {
+		A a;
+
+		a.private_func();
+		a.private_num = 2;
+	}
+};
+
+void func() {
+	A a;
+	a.private_func();
+	a.private_num = 2;
+}
+
 void main()
 {
-	MyString str1("very very very long string");
-	MyString str2("My Life has begun");
-	MyString str3("My Life has begun");
 
-	if (str1 == str2)
-		std::cout << "str1 와 str2 같다." << std::endl;
-	else
-		std::cout << "st1 와 str2 는 다르다." << std::endl;
+	Complex a(1.0, 2.0);
+	Complex b(3.0, -2.0);
 
-	if (str2 == str3)
-		std::cout << "str2 와 str3 는 같다." << std::endl;
-	else
-		std::cout << "st2 와 str3 는 다르다" << std::endl;
+	Complex c = a * b;
+	c.println();
 }
