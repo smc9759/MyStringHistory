@@ -181,7 +181,6 @@ MyString& MyString::assign(const MyString& str) {
 }
 
 MyString& MyString::assign() {
-	//z크기가 0인 배열에 입력을 집어넣으려니 오류가 발생함 
 	string_context = new char[1001];
 	std::cin >> string_context;
 	memory_capacity = string_length = strlen(string_context);
@@ -325,10 +324,16 @@ bool MyString::operator==(MyString& str) {
 
 int main()
 {
-	//int i = 0;
+	int i = 0;
 	//char* input= new char[1001];
 	//std::cin >> input;
-	MyString Input("");
-	Input.assign();
+	std::cin >> i;
+	//한번에 여러개를 입력받지 않고, 입력받고 바로 출력하는 식으로 해도 정답이다.
+	for (int j = 0; j < i; j++) {
+		MyString Input("");
+		Input.assign();
+		Input.println();
+		//2. 
+	}
 	
 }
